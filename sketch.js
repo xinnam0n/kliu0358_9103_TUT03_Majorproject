@@ -279,7 +279,7 @@ class Wheel {
       this.innerPattern.angle += this.innerPattern.speed;
     }
 
-    // --- update breathing phase (NEW) ---
+    // update breathing phase
     this.pulsePhase += this.pulseSpeed;
 
     this.currentScale = lerp(this.currentScale, this.targetScale, this.scaleLerpSpeed);
@@ -296,14 +296,14 @@ class Wheel {
     // smooth animated scaling
     let scaleFactor = breathe * this.currentScale;
 
-    // add influence from hover (set in updateHoverInfluence)
+    // add hover influence
     scaleFactor += this.hoverInfluence;
 
-    // from here on, use scaleFactor to size everything:
+    // --- Base outer disc ---
     fill(this.palette.outer);
     ellipse(0, 0, this.r * 2 * scaleFactor);
 
-    // if this is the hovered wheel, make it bigger
+    // --- Hover bump ---
     if (this === hoveredWheel) {
       scaleFactor += 0.1;   // hover bump; tweak 0.2–0.5
     }
@@ -319,17 +319,17 @@ class Wheel {
     // --- Pattern layers (random dots/rays) ---
     this.drawPatternLayer(this.layers[0], scaleFactor);
 
-    // Coloured ring between layer 1 and 2
+    // --- Coloured ring between layer 1 and 2 ---
     fill(this.palette.ring2);
     ellipse(0, 0, this.r * 1.55 * scaleFactor);
 
-    // Ring 2 pattern
+    // --- Ring 2 pattern ---
     this.drawPatternLayer(this.layers[1], scaleFactor);
 
-    // Ring 3 pattern
+    // --- Ring 3 pattern ---
     this.drawPatternLayer(this.layers[2], scaleFactor);
 
-    // Inner coloured disc under core pattern
+    // --- Inner coloured disc under core pattern ---
     fill(this.palette.ring3);
     ellipse(0, 0, this.r * 0.95 * scaleFactor);
 
@@ -360,7 +360,7 @@ class Wheel {
       ellipse(0, 0, this.r * 0.5 * scaleFactor);
     }
 
-    // centre disc + tiny dot
+    // --- Centre disc + tiny dot ---
     fill(this.palette.center);
     ellipse(0, 0, this.r * 0.32 * scaleFactor);
     fill(0);
@@ -380,7 +380,7 @@ class Wheel {
     return d < this.r; // within radius
   }
 
-    
+  // Draw a pattern layer (dots or rays)
   drawPatternLayer(layer, scaleFactor) {
     push();
     rotate(layer.angle);
