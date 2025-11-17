@@ -229,7 +229,7 @@ Smoothstep easing technique: [Smoothstep](https://thebookofshaders.com/glossary/
 
 Using distance + smoothstep to set targetScale for all wheels in __utils.js__:
 
-```
+```js
 function updateHoverInfluence() {
   if (!hoveredWheel) {
     for (let w of wheels) {
@@ -280,7 +280,7 @@ My animation is driven entirely by user interaction using standard p5.js input t
 Mouse Hover Detection: I track mouseX and mouseY to identify which wheel the user is pointing at. This controls proximity-based scaling where nearby wheels grow smoothly using a GLSL-inspired smoothstep easing curve.
 Finding the hovered wheel in __sketch.js__ (using mouseX, mouseY and isMouseInside):
 
-```
+```js
 // 1) find hovered wheel
 hoveredWheel = null;
 for (let w of wheels) {
